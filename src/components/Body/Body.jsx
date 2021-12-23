@@ -6,6 +6,9 @@ class Body extends Component {
     super(props);
     this.primeiro = "";
     this.segundo = "";
+    this.state = {
+      soma: 0
+    }
   }
 
   _handleMudancaPrimeiro(evento) {
@@ -18,15 +21,15 @@ class Body extends Component {
     this.segundo = Number(evento.target.value);
   }
 
-  _valorSomar(evento) {
-    evento.preventDefault();
-    evento.stopPropagation();
-    this.soma = this.primeiro + this.segundo;
-  }
+  // _valorSomar(evento) {
+  //   evento.preventDefault();
+  //   evento.stopPropagation();
+  //   this.soma = this.primeiro + this.segundo;
+  // }
 
   render() {
     return (
-      <form className="body" onSubmit={this._valorSomar.bind(this)}>
+      <section className="body">
         <div className="rainbow">
           <h1 className="body__titulo body__titulo__animation">SOMADOR</h1>
         </div>
@@ -37,6 +40,7 @@ class Body extends Component {
             placeholder="Primeiro valor"
             required
             onChange={this._handleMudancaPrimeiro.bind(this)}
+            onClick={() => this.setState({ soma: 0 })}
           />
 
           <div className="rainbow">
@@ -48,19 +52,21 @@ class Body extends Component {
             placeholder="Segundo valor"
             required
             onChange={this._handleMudancaSegundo.bind(this)}
+            onClick={() => this.setState({ soma: 0 })}
           />
 
           <input id="somar" 
           type="submit" 
           value="somar" 
+          onClick={() => this.setState({ soma: this.primeiro + this.segundo })}
           />
-          
-          <div
-            id="teclado__valorSoma">
-          </div>
+
+          <p className="teclado__valorSoma">
+          {this.state.soma}
+          </p>
 
         </section>
-      </form>
+      </section>
     );
   }
 }
